@@ -4,15 +4,14 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background-color: #dddddd;
 
     .login_card{
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 24px;
+        padding: 8px 24px;
         width: 500px;
-        max-height: 205px;
+        min-height: 205px;
         background-color: #FFFFFF;
         border-radius: 16px;
         border: solid 1px #CCCCCC;
@@ -43,7 +42,7 @@
             }
         }
 
-        .login_button{
+        .login_btn{
             display: flex;
             justify-content: center;
             align-items: center;
@@ -62,5 +61,109 @@
         }
     }
 
+
+}
+
+
+
+.home_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+
+    .home_content{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+        min-width: 350px;
+        max-width: 800px;
+        background-color: #FFFFFF;
+        .home_header{
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding-left: 28px;
+            height: 80px;
+            background-color: #7695EC;
+            h1{
+                color: #FFFFFF;
+                font-size: 1.4rem;
+                font-weight: bold;
+            }
+        }
+        
+        .home_body{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 0px 25px;
+            .home_form{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                padding: 18px;
+                border: 1px solid #999999;
+                border-radius: 16px;
+                gap: 16px;
+
+                h2{
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                }
+
+                .home_post_form{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                    .home_post_form_title{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 4px;
+                        input{
+                            border-radius: 8px;
+                            height: 32px;
+                            outline: none;
+                            border: solid 1px #777777;
+                            padding: 0 12px;
+                        }
+                    }
+
+                    .home_post_form_content{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 4px;
+                        textarea{
+                            border-radius: 8px;
+                            height: 74px;
+                            outline: none;
+                            border: solid 1px #777777;
+                            padding: 5px 12px;
+                            font-family: Roboto;
+                        }
+                    }
+                }
+
+                .home_post_btn{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #7695EC;
+                    width: 100px;
+                    border-radius: 8px;
+                    font: 700;
+                    height: 32px;
+                    color: #FFFFFF;
+                    cursor: pointer;
+                    margin-left: auto;
+                }
+            }
+        }
+        
+    }
 
 }

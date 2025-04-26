@@ -1,12 +1,17 @@
-import LoginPage from './pages/LoginPage'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './styles/globals.css'
+import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
 
 function App() {
 
   return (
-    <div>
-      <LoginPage></LoginPage>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/home" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
