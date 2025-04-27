@@ -42,7 +42,7 @@ const HomePage = () => {
                 
                 <ul className="home_post_list">
                     {posts.map((post) => (
-                        <PostCard key={post.id} post={post} />
+                        <PostCard key={post.id} post={post} onPostAction={fetchPosts} />
                     ))}
                 </ul>
                 </div>

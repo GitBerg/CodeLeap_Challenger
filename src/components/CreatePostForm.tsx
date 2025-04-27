@@ -8,7 +8,6 @@ interface CreatePostFormProps {
 export default function CreatePostForm({ onPostCreated }: CreatePostFormProps) {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
-    const [loading, setLoading] = useState(false);
 
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -17,7 +16,6 @@ export default function CreatePostForm({ onPostCreated }: CreatePostFormProps) {
 
         if (!title || !content) return;
 
-        setLoading(true);
         try {
             await createPost(username, title, content);
             setTitle("");
@@ -25,9 +23,7 @@ export default function CreatePostForm({ onPostCreated }: CreatePostFormProps) {
             onPostCreated();
         } catch (error) {
             console.error("Erro ao criar post:", error);
-        } finally {
-            setLoading(false);
-        }
+        } 
     };
 
     return (

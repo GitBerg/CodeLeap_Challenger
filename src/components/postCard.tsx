@@ -2,20 +2,51 @@ import { Post } from "../types/post"
 import { getTimeSincePost } from "../utils/timeUtils";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
+import ConfirmDeleteModal from "./ConfirmDeleteModal";
+import ModalEditPost from "./ModalEditPost";
+import { deletePost, editPost } from "../services/postsService";
+import { useState } from "react";
 
 
+interface PostCardProps {
+    post: Post;
+    onPostAction: () => void; // para recarregar os posts depois de editar ou deletar
+}
 
-export const PostCard = ({ post }: { post: Post }) => {
+export const PostCard = ({ post, onPostAction }: PostCardProps) => {
+
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
 
     const username = localStorage.getItem("username") || "Anonymous";
+
+    const handleDelete = async () => {
+        try {
+            await deletePost(post.id);
+            onPostAction();
+            setShowDeleteModal(false);
+        } catch (error) {
+            console.error("Erro ao deletar post:", error);
+        }
+    };
+
+    const handleEdit = async (title: string, content: string) => {
+        try {
+            await editPost(post.id, title, content);
+            onPostAction();
+            setShowEditModal(false);
+        } catch (error) {
+            console.error("Erro ao editar post:", error);
+        }
+    };
 
     return (
         <div className="post_card">
             <div className="post_card_header">
                 <h2>{post.title}</h2>
                 <div className={`post_card_header_dots ${username === post.username ? '' : 'hidden'}`}>
-                    <span><MdDeleteForever /></span>
-                    <span><FaRegEdit /></span>
+                    <span onClick={() => setShowDeleteModal(true)}><MdDeleteForever /></span>
+                    <span onClick={() => setShowEditModal(true)}><FaRegEdit /></span>
                 </div>
             </div>
             <div className="post_card_body">
@@ -27,6 +58,20 @@ export const PostCard = ({ post }: { post: Post }) => {
                     {post.content}
                 </div>
             </div>
+
+            <ConfirmDeleteModal
+                isOpen={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
+                onConfirm={handleDelete}
+            />
+
+            <ModalEditPost
+                isOpen={showEditModal}
+                onClose={() => setShowEditModal(false)}
+                onSave={handleEdit}
+                initialTitle={post.title}
+                initialContent={post.content}
+            />
         </div>
     )
 }
