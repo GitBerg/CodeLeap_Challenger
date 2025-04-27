@@ -1,54 +1,81 @@
-# React + TypeScript + Vite
+# CodeLeap Network - Posts App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto é um app de postagem de usuários, desenvolvido como desafio técnico para práticas de frontend e boas práticas de arquitetura.
 
-Currently, two official plugins are available:
+Ele permite:
+- Criar posts
+- Editar posts
+- Deletar posts
+- Ver a lista de posts em tempo real
+- Skeleton loading para melhor experiência de usuário
+- Animações suaves de fade-in e fade-out para transições de postagens
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologias utilizadas
 
-## Expanding the ESLint configuration
+- React (com Vite)
+- TypeScript
+- Axios (para simular chamadas de API)
+- react-loading-skeleton (para efeito de carregamento)
+- CSS puro (sem frameworks como Tailwind)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📦 Estrutura do Projeto
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+src/<br> ├── components/ <br> │ ├── CreatePostForm.tsx <br> │ ├── PostCard.tsx <br> │ ├── PostSkeleton.tsx <br> │ ├── ConfirmDeleteModal.tsx <br> │ └── ModalEditPost.tsx <br> ├── services/ <br> │ └── postsService.ts <br> ├── types/ <br> │ └── post.ts <br> ├── utils/ <br> │ └── timeUtils.ts <br> ├── pages/ <br> │ └── HomePage.tsx <br>| └── styles/ └── globals.css
+
+## 🛠 Como rodar o projeto localmente
+
+1. Clone o repositório:
+
+```
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Instale as dependências:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
+npm install
+# ou
+yarn install
+```
+
+3. Inicie o servidor de desenvolvimento:
+
+```
+npm run dev
+# ou
+yarn dev
+```
+
+4. Acesse em seu navegador:
+
+```
+http://localhost:5173
+```
+
+## 🔑 Importante
+Este projeto simula uma API de criação, edição e remoção de posts.
+
+Se você for integrar com uma API real, lembre-se de adaptar o postsService.ts.
+
+Para usar sua própria API real, configure corretamente seu endpoint e autenticação.
+
+## 🎨 Melhorias implementadas
+Skeleton loading enquanto a página carrega.
+
+Animação de entrada e saída de posts.
+
+Formulário de criação com loading state e limpeza de campos automática.
+
+Organização em componentes pequenos e reutilizáveis.
+
+Código seguindo princípios de Clean Code e Single Responsibility.
+
+## 👨‍💻 Desenvolvedor
+Feito por Gutemberg Filho.
+
+Se quiser trocar uma ideia ou conhecer mais sobre meus projetos:
+
+[LinkedIn](https://www.linkedin.com/in/gutembergfilho/)
+
+[GitHub](https://github.com/GitBerg)
