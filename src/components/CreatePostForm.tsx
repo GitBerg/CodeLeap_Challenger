@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface CreatePostFormProps {
     onPostCreated: (title: string, content: string) => Promise<true | undefined>;
@@ -15,7 +16,18 @@ export default function CreatePostForm({ onPostCreated }: CreatePostFormProps) {
         if (!title || !content) return;
 
         try {
-            await onPostCreated(title, content);
+            const result = await onPostCreated(title, content);
+            if (result) {
+                toast.success("Post created successfully!", {
+                    duration: 3000,
+                    position: "top-right", 
+                    style: {
+                        backgroundColor: "#4BB543",
+                        color: "#fff",
+                        borderRadius: "8px",
+                    },
+                });
+            }
             setTitle("");
             setContent("");
         } catch (error) {
@@ -35,7 +47,7 @@ export default function CreatePostForm({ onPostCreated }: CreatePostFormProps) {
                 </div>
                 <div className="home_post_form_content">
                     <label htmlFor="content">Content</label>
-                    <textarea onChange={(e) => setContent(e.target.value)} value={content} placeholder="Content here" id="content" />
+                    <textarea  onChange={(e) => setContent(e.target.value)} value={content} placeholder="Content here" id="content" />
                 </div>
             </div>
             <button type="submit" className={`home_post_btn ${title === '' || content === '' ? 'disabled' : ''}`}>

@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { createPost, deletePost, editPost, getPosts } from "../services/postsService";
 import { Post } from "../types/post";
 import CreatePostForm from "../components/CreatePostForm";
+import toast from "react-hot-toast";
+import PostSkeleton from "../components/PostSkeleton";
+
 
 const HomePage = () => {
 
@@ -47,6 +50,15 @@ const HomePage = () => {
               post.id === id ? { ...post, title, content } : post
             )
           );
+          toast.success("Post edited successfully!", {
+            duration: 3000,
+                    position: "top-right", 
+                    style: {
+                        backgroundColor: "#4BB543",
+                        color: "#fff",
+                        borderRadius: "8px",
+                    },
+          });
         } catch (error) {
           console.error("Erro ao editar post:", error);
         }
@@ -56,13 +68,31 @@ const HomePage = () => {
         try {
           await deletePost(id);
           setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
+          toast.success("Post deleted successfully!", {
+            duration: 3000,
+                    position: "top-right", 
+                    style: {
+                        backgroundColor: "#4BB543",
+                        color: "#fff",
+                        borderRadius: "8px",
+                    },
+          });
         } catch (error) {
           console.error("Erro ao deletar post:", error);
         }
       };
 
-    if (loading) return <p >Carregando posts...</p>;
-    if (error) return <p >{error}</p>;
+      if (loading) {
+        return (
+          <div className="">   
+            <div className="flex flex-col gap-4">
+              {[...Array(3)].map((_, index) => (
+                <PostSkeleton key={index} />
+              ))}
+            </div>
+          </div>
+        );
+      }
 
     return (
         <div className="home_container">

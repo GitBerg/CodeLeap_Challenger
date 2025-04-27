@@ -58,6 +58,9 @@ export const PostCard = ({post, onEdit, onDelete }: PostCardProps) => {
                 isOpen={showEditModal}
                 onClose={() => setShowEditModal(false)}
                 onSave={handleEditConfirm}
+                initialTitle={post.title}
+                initialContent={post.content}
+
             />
         </div>
     )

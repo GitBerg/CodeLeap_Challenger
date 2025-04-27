@@ -4,15 +4,19 @@ interface ModalEditPostProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (title: string, content: string) => void;
+  initialTitle: string,
+  initialContent: string
 }
 
 export default function ModalEditPost({
   isOpen,
   onClose,
   onSave,
+  initialTitle,
+  initialContent
 }: ModalEditPostProps) {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState(initialTitle);
+  const [content, setContent] = useState(initialContent);
 
   if (!isOpen) return null;
 
