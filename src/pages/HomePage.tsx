@@ -1,4 +1,4 @@
-import {PostCard} from "../components/postCard";
+import {PostCard} from "../components/PostCard";
 import { useEffect, useState } from "react";
 import { createPost, deletePost, editPost, getPosts } from "../services/postsService";
 import { Post } from "../types/post";

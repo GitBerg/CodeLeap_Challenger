@@ -36,7 +36,7 @@ export default function CreatePostForm({ onPostCreated }: CreatePostFormProps) {
     };
 
     return (
-        <form className="home_form" onSubmit={handleSubmit}>
+        <form className="home_form fade-in" onSubmit={handleSubmit}>
             <h2>
                 What’s on your mind?
             </h2>

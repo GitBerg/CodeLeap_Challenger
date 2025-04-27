@@ -11,26 +11,32 @@ interface PostCardProps {
     post: Post;
     onEdit: (id: number, title: string, content: string) => void;
     onDelete: (id: number) => void;
-  }
-export const PostCard = ({post, onEdit, onDelete }: PostCardProps) => {
+}
+export const PostCard = ({ post, onEdit, onDelete }: PostCardProps) => {
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
+    const [fadeClass, setFadeClass] = useState("fade-in");
 
     const username = localStorage.getItem("username") || "Anonymous";
 
     const handleDeleteConfirm = () => {
-        onDelete(post.id);
+        setFadeClass("fade-out");
         setShowDeleteModal(false);
-      };
-    
-      const handleEditConfirm = (title: string, content: string) => {
+        setTimeout(() => {
+            onDelete(post.id);
+        }, 300);
+
+    };
+
+    const handleEditConfirm = (title: string, content: string) => {
         onEdit(post.id, title, content);
         setShowEditModal(false);
-      };
+    };
 
     return (
-        <div className="post_card">
+        <>
+        <div className={`post_card ${fadeClass}`}>
             <div className="post_card_header">
                 <h2>{post.title}</h2>
                 <div className={`post_card_header_dots ${username === post.username ? '' : 'hidden'}`}>
@@ -47,6 +53,7 @@ export const PostCard = ({post, onEdit, onDelete }: PostCardProps) => {
                     {post.content}
                 </div>
             </div>
+            </div>
 
             <ConfirmDeleteModal
                 isOpen={showDeleteModal}
@@ -62,7 +69,7 @@ export const PostCard = ({post, onEdit, onDelete }: PostCardProps) => {
                 initialContent={post.content}
 
             />
-        </div>
+       </>
     )
 }
 
