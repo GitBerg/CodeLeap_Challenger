@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { createPost } from "../services/postsService"; // função de criar post
 
 interface CreatePostFormProps {
-    onPostCreated: () => void; // função para recarregar a lista de posts
+    onPostCreated: (title: string, content: string) => Promise<true | undefined>;
 }
 
 export default function CreatePostForm({ onPostCreated }: CreatePostFormProps) {
@@ -12,15 +11,13 @@ export default function CreatePostForm({ onPostCreated }: CreatePostFormProps) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const username = localStorage.getItem("username") || "Anonymous";
 
         if (!title || !content) return;
 
         try {
-            await createPost(username, title, content);
+            await onPostCreated(title, content);
             setTitle("");
             setContent("");
-            onPostCreated();
         } catch (error) {
             console.error("Erro ao criar post:", error);
         } 
@@ -34,11 +31,11 @@ export default function CreatePostForm({ onPostCreated }: CreatePostFormProps) {
             <div className="home_post_form">
                 <div className="home_post_form_title">
                     <label htmlFor="title">Title</label>
-                    <input type="text" onChange={(e) => setTitle(e.target.value)} placeholder="Hello world" id="title" />
+                    <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} placeholder="Hello world" id="title" />
                 </div>
                 <div className="home_post_form_content">
                     <label htmlFor="content">Content</label>
-                    <textarea onChange={(e) => setContent(e.target.value)} placeholder="Content here" id="content" />
+                    <textarea onChange={(e) => setContent(e.target.value)} value={content} placeholder="Content here" id="content" />
                 </div>
             </div>
             <button type="submit" className={`home_post_btn ${title === '' || content === '' ? 'disabled' : ''}`}>
