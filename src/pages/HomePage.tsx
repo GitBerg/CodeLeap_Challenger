@@ -5,13 +5,15 @@ import { Post } from "../types/post";
 import CreatePostForm from "../components/CreatePostForm";
 import toast from "react-hot-toast";
 import PostSkeleton from "../components/PostSkeleton";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 
 
 const HomePage = () => {
 
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
 
 
     useEffect(() => {
@@ -24,7 +26,6 @@ const HomePage = () => {
           const postsData = await getPosts();
           setPosts(postsData);
         } catch (err) {
-          setError("Erro ao carregar posts.");
           console.error(err);
         } finally {
           setLoading(false);
@@ -84,8 +85,19 @@ const HomePage = () => {
 
       if (loading) {
         return (
-          <div className="">   
-            <div className="flex flex-col gap-4">
+          <div className="home-loading">
+        
+            <Skeleton width="40%" height={30} />
+      
+            <div className="form-skeleton">
+              <Skeleton width="60%" height={20} style={{ marginBottom: '16px' }} />
+              <Skeleton width="100%" height={40} style={{ marginBottom: '8px' }} />
+              <Skeleton width="100%" height={100} style={{ marginBottom: '16px' }} />
+              <Skeleton width="120px" height={40} />
+            </div>
+      
+            
+            <div className="posts-skeleton">
               {[...Array(3)].map((_, index) => (
                 <PostSkeleton key={index} />
               ))}

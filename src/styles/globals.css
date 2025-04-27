@@ -363,3 +363,27 @@ h2 {
 ::placeholder {
     color: #CCCCCC;
 }
+
+/* SKELETON STYLES */
+
+.home-loading {
+    min-height: 100vh;
+    padding: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .form-skeleton {
+    border: 1px solid #ccc;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+  .posts-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
