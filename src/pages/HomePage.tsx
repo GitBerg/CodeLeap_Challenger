@@ -1,4 +1,36 @@
+import {PostCard} from "../components/postCard";
+import { useEffect, useState } from "react";
+import { getPosts } from "../services/postsService";
+import { Post } from "../types/post";
+import CreatePostForm from "../components/CreatePostForm";
+
 const HomePage = () => {
+
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+
+    const fetchPosts = async () => {
+        setLoading(true);
+        try {
+            const postsData = await getPosts();
+            setPosts(postsData);
+        } catch (err) {
+            setError("Erro ao carregar posts.");
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
+    if (loading) return <p className="text-center mt-10">Carregando posts...</p>;
+    if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
+
     return (
         <div className="home_container">
             <div className="home_content">
@@ -6,30 +38,17 @@ const HomePage = () => {
                     <h1>CodeLeap Network</h1>
                 </div>
                 <div className="home_body">
-                    <div className="home_form">
-                        <h2>
-                            What’s on your mind?
-                        </h2>
-                        <div className="home_post_form">
-                            <div className="home_post_form_title">
-                                <label htmlFor="title">Title</label>
-                                <input type="text" placeholder="Hello world" id="title"/>
-                            </div>
-                            <div className="home_post_form_content">
-                                <label htmlFor="content">Content</label>
-                                <textarea placeholder="Content here" id="content"/>
-                            </div>
-                        </div>
-                        <span className="home_post_btn">
-                            Create
-                        </span>
-                    </div>
-                    <div className="home_post_list">
-                        
-                    </div>
+                    <CreatePostForm onPostCreated={fetchPosts} />
+                
+                <ul className="home_post_list">
+                    {posts.map((post) => (
+                        <PostCard key={post.id} post={post} />
+                    ))}
+                </ul>
                 </div>
             </div>
         </div>
+
     )
 }
 
